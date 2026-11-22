@@ -1,0 +1,277 @@
+/* ============================================================
+   ROMA & CRUST - CUSTOM STYLESHEET
+   Tailwind handles most styling; this file has custom animations,
+   component styles, and smooth interactions.
+   ============================================================ */
+
+:root {
+  --bg-cream: #FBF7F0;
+  --bg-tomato: #C83E2B;
+  --bg-white: #FFFFFF;
+  --accent-red: #E63946;
+  --accent-red-hover: #B71C1C;
+  --badge-yellow: #F4A261;
+  --badge-green: #2A9D8F;
+  --text-charcoal: #1D1E2C;
+  --text-muted: #5C5D6E;
+  --border-warm: #ECE3D5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-cream);
+  color: var(--text-charcoal);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Typography Utilities ---------- */
+.font-display {
+  font-family: 'Anton', 'Oswald', sans-serif;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.font-oswald {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.font-serif-italic {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+}
+
+/* ---------- Artisan Dot Pattern Overlay ---------- */
+.bg-artisan-pattern {
+  background-image: radial-gradient(rgba(29, 30, 44, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ---------- Glassmorphism Navbar ---------- */
+.navbar-glass {
+  background: rgba(251, 247, 240, 0.86);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(29, 30, 44, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar-glass.scrolled {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 30px -10px rgba(29, 30, 44, 0.08);
+}
+
+/* ---------- Blinking "Open Now" Dot ---------- */
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.7);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+    box-shadow: 0 0 0 8px rgba(42, 157, 143, 0);
+  }
+}
+
+.blinking-dot {
+  animation: pulseDot 1.8s infinite ease-in-out;
+}
+
+/* ---------- Rotating Circular Text ---------- */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-circular-text {
+  animation: spinSlow 24s linear infinite;
+}
+
+/* ---------- Floating Badge Animations ---------- */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(-4deg); }
+  50% { transform: translateY(-10px) rotate(-2deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(5deg); }
+  50% { transform: translateY(8px) rotate(2deg); }
+}
+
+.float-badge-1 { animation: floatSlow 4.2s ease-in-out infinite; }
+.float-badge-2 { animation: floatReverse 4.8s ease-in-out infinite; }
+
+/* ---------- Primary Fire Button ---------- */
+.btn-primary-fire {
+  background-color: var(--accent-red);
+  color: #FFFFFF;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 20px -4px rgba(230, 57, 70, 0.42);
+}
+
+.btn-primary-fire:hover {
+  background-color: var(--accent-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(183, 28, 28, 0.52);
+}
+
+.btn-primary-fire:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ---------- Menu Card Hover Lift ---------- */
+.menu-card {
+  background: var(--bg-white);
+  border-radius: 16px;
+  border: 1px solid rgba(29, 30, 44, 0.06);
+  box-shadow: 0 6px 20px -6px rgba(29, 30, 44, 0.06);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.32s ease;
+  will-change: transform;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 34px -10px rgba(29, 30, 44, 0.13);
+  border-color: rgba(230, 57, 70, 0.28);
+}
+
+.menu-card .card-img-wrap img {
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-card:hover .card-img-wrap img {
+  transform: scale(1.07);
+}
+
+/* ---------- Category Filter Tabs ---------- */
+.category-tab {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.category-tab.active {
+  background-color: var(--accent-red) !important;
+  color: #FFFFFF !important;
+  border-color: var(--accent-red) !important;
+  box-shadow: 0 8px 18px -4px rgba(230, 57, 70, 0.45);
+  transform: translateY(-1px);
+}
+
+/* ---------- Scroll Reveal Animations ---------- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Cart Drawer Slide-Out ---------- */
+.cart-drawer-backdrop {
+  background: rgba(29, 30, 44, 0.58);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+.cart-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart-drawer-panel {
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.cart-drawer-panel.open {
+  transform: translateX(0);
+}
+
+/* ---------- Custom Scrollbar ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #FBF7F0; }
+::-webkit-scrollbar-thumb { background: #D5CBB8; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #C83E2B; }
+
+/* ---------- Hide scrollbar for horizontal tabs ---------- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---------- Fries Size Pills ---------- */
+.size-pill {
+  transition: all 0.2s ease;
+}
+
+.size-pill.active {
+  background-color: #1D1E2C !important;
+  color: #FFFFFF !important;
+  border-color: #1D1E2C !important;
+}
+
+/* ---------- Hero Thumb Buttons ---------- */
+.hero-thumb-btn {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-thumb-btn.active {
+  background-color: #1D1E2C !important;
+  color: #FFFFFF !important;
+}
+
+/* ---------- Toast Notification ---------- */
+.toast-item {
+  transform: translateY(8px);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease;
+}
+
+.toast-item.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---------- Smooth Image Fade in Hero ---------- */
+#hero-showcase-img {
+  transition: opacity 0.3s ease, transform 0.5s ease;
+}
+
+/* ---------- Better Button Active Feedback ---------- */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Mobile Floating Cart Smooth ---------- */
+#mobile-floating-cart {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#mobile-floating-cart.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}

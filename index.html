@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROMA &amp; CRUST | Crispy, Cheesy &amp; Piping Hot Artisanal Fast Food</title>
+  <meta name="description" content="Freshly baked pizzas, loaded zinger burgers, shawarmas, and mouth-watering paratha rolls made to order. Fast delivery in 25-30 mins starting at Rs. 150." />
+
+  <!-- Tailwind CSS v4 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="antialiased selection:bg-[#E63946] selection:text-white">
+
+  <!-- ============ A. STICKY NAVBAR ============ -->
+  <header id="main-navbar" class="navbar-glass sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-11 h-11 rounded-xl bg-[#E63946] flex items-center justify-center text-white shadow-md group-hover:bg-[#B71C1C] transition-colors">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L19 21L12 17L5 21L12 2Z" fill="#F4A261" stroke="currentColor"/>
+            <circle cx="12" cy="11" r="1.5" fill="currentColor"/>
+            <circle cx="10" cy="14" r="1" fill="currentColor"/>
+            <circle cx="14" cy="14" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display text-2xl sm:text-[26px] tracking-wider leading-none text-[#1D1E2C]">
+            ROMA <span class="text-[#E63946]">&amp;</span> CRUST
+          </span>
+          <span class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#5C5D6E] mt-0.5">
+            Artisanal Grill &amp; Bakehouse
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8">
+        <a href="#menu" class="text-sm font-bold text-[#1D1E2C] hover:text-[#E63946] transition-colors py-2">Menu</a>
+        <a href="#menu" onclick="selectCategoryAndScroll('Mega Deals', event)" class="text-sm font-bold text-[#1D1E2C] hover:text-[#E63946] transition-colors py-2 flex items-center gap-1.5">
+          <span>Hot Deals</span>
+          <span class="px-1.5 py-0.5 text-[10px] font-extrabold rounded bg-[#F4A261]/25 text-[#C83E2B] uppercase">Save 25%</span>
+        </a>
+        <a href="#why-us" class="text-sm font-bold text-[#1D1E2C] hover:text-[#E63946] transition-colors py-2">Why Us</a>
+        <a href="#reviews" class="text-sm font-bold text-[#1D1E2C] hover:text-[#E63946] transition-colors py-2">Reviews</a>
+        <a href="#contact" class="text-sm font-bold text-[#1D1E2C] hover:text-[#E63946] transition-colors py-2">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <a href="tel:03001234567" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-[#1D1E2C]/15 bg-white/80 hover:bg-white hover:border-[#1D1E2C]/30 text-[#1D1E2C] font-bold text-xs md:text-sm transition-all shadow-2xs">
+          <span class="w-6 h-6 rounded-lg bg-[#2A9D8F]/15 text-[#2A9D8F] flex items-center justify-center">
+            <i class="fa-solid fa-phone-volume text-xs"></i>
+          </span>
+          <span>0300-1234567</span>
+        </a>
+
+        <button id="nav-cart-btn" onclick="toggleCartDrawer(true)" class="btn-primary-fire inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm cursor-pointer" aria-label="Open Order Cart">
+          <i class="fa-solid fa-bag-shopping text-base"></i>
+          <span>Order Cart</span>
+          <span id="nav-cart-count" class="inline-flex items-center justify-center min-w-[24px] h-[22px] px-1.5 rounded-full bg-white text-[#E63946] text-xs font-extrabold shadow-xs transition-transform">(0)</span>
+        </button>
+
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-xl border border-[#1D1E2C]/15 bg-white flex items-center justify-center text-[#1D1E2C] hover:text-[#E63946] transition-colors cursor-pointer" aria-label="Toggle Mobile Navigation">
+          <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu-panel" class="lg:hidden hidden bg-white border-b border-[#ECE3D5] px-4 pt-3 pb-6 shadow-xl">
+      <div class="flex flex-col space-y-2">
+        <a href="#menu" onclick="toggleMobileMenu()" class="px-3 py-2.5 rounded-lg font-bold text-[#1D1E2C] hover:bg-[#FBF7F0] hover:text-[#E63946] flex items-center justify-between">
+          <span>Explore Full Menu</span><i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+        </a>
+        <a href="#menu" onclick="toggleMobileMenu(); selectCategoryAndScroll('Mega Deals', event)" class="px-3 py-2.5 rounded-lg font-bold text-[#1D1E2C] hover:bg-[#FBF7F0] hover:text-[#E63946] flex items-center justify-between">
+          <span class="flex items-center gap-2">Hot Mega Deals <span class="px-2 py-0.5 text-[10px] rounded-full bg-[#F4A261] text-[#1D1E2C] font-extrabold">BEST VALUE</span></span>
+          <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+        </a>
+        <a href="#why-us" onclick="toggleMobileMenu()" class="px-3 py-2.5 rounded-lg font-bold text-[#1D1E2C] hover:bg-[#FBF7F0] hover:text-[#E63946] flex items-center justify-between">
+          <span>Why Us (100% Halal)</span><i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+        </a>
+        <a href="#reviews" onclick="toggleMobileMenu()" class="px-3 py-2.5 rounded-lg font-bold text-[#1D1E2C] hover:bg-[#FBF7F0] hover:text-[#E63946] flex items-center justify-between">
+          <span>Customer Reviews</span><i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+        </a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="px-3 py-2.5 rounded-lg font-bold text-[#1D1E2C] hover:bg-[#FBF7F0] hover:text-[#E63946] flex items-center justify-between">
+          <span>Contact &amp; Hours</span><i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+        </a>
+        <div class="pt-2 border-t border-[#ECE3D5] flex items-center justify-between gap-3">
+          <a href="tel:03001234567" class="w-full py-2.5 px-4 rounded-xl bg-[#2A9D8F]/12 text-[#2A9D8F] font-extrabold text-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-phone"></i><span>Call Direct: 0342-8423052</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ B. HERO SECTION ============ -->
+  <section class="relative overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24 bg-[#FBF7F0] bg-artisan-pattern">
+    <div class="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#F4A261]/15 blur-3xl"></div>
+    <div class="pointer-events-none absolute top-1/3 right-0 w-[28rem] h-[28rem] rounded-full bg-[#E63946]/10 blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <div class="lg:col-span-7 space-y-7 text-left">
+          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-[#2A9D8F]/30 shadow-xs">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#2A9D8F] blinking-dot"></span>
+            <span class="text-xs sm:text-sm font-extrabold tracking-wide text-[#1D1E2C]">
+              Open Now &bull; <span class="text-[#2A9D8F]">Fast Delivery</span>
+            </span>
+            <span class="hidden sm:inline-block text-xs font-serif-italic text-[#5C5D6E] pl-1 border-l border-gray-200">
+              Handcrafted Daily
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <p class="font-serif-italic text-lg sm:text-xl text-[#C83E2B] font-semibold">
+              Flame-grilled perfection meets street-style indulgence
+            </p>
+            <h1 class="font-display text-5xl sm:text-6xl xl:text-[76px] leading-[0.97] tracking-tight text-[#1D1E2C]">
+              CRISPY, CHEESY <br class="hidden sm:inline" />
+              AND
+              <span class="relative inline-block text-[#E63946] pb-2">
+                PIPING HOT
+                <svg class="absolute left-0 -bottom-1 w-full h-4 sm:h-5 text-[#F4A261]" viewBox="0 0 320 22" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                  <path d="M4 15.5C68.5 5.2 189.2 2.8 316 12.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+                  <path d="M28 19C110 11.5 222 10.5 294 17.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+                </svg>
+              </span>
+            </h1>
+          </div>
+
+          <p class="text-base sm:text-lg text-[#5C5D6E] max-w-xl leading-relaxed font-medium">
+            Freshly baked pizzas, loaded zinger burgers, and mouth-watering paratha rolls made to order. Hot from our kitchen to your doorstep.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-1">
+            <a href="#menu" class="btn-primary-fire px-7 py-4 rounded-2xl font-extrabold text-base inline-flex items-center gap-3">
+              <span>Explore Menu</span><i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#menu" onclick="selectCategoryAndScroll('Mega Deals', event)" class="px-7 py-4 rounded-2xl font-extrabold text-base text-[#1D1E2C] bg-white/90 hover:bg-[#1D1E2C] hover:text-white border-2 border-[#1D1E2C] transition-all inline-flex items-center gap-2.5 shadow-xs">
+              <i class="fa-solid fa-fire-flame-curved text-[#F4A261]"></i>
+              <span>View Hot Deals</span>
+            </a>
+          </div>
+
+          <div class="pt-4">
+            <div class="grid grid-cols-3 divide-x divide-[#1D1E2C]/15 bg-white/85 backdrop-blur-xs border border-[#ECE3D5] rounded-2xl p-4 sm:p-5 shadow-xs max-w-2xl">
+              <div class="pr-3 sm:pr-5">
+                <div class="flex items-center gap-1.5 font-display text-xl sm:text-2xl text-[#1D1E2C]">
+                  <span>4.9</span><i class="fa-solid fa-star text-[#F4A261] text-base sm:text-lg"></i>
+                </div>
+                <p class="text-[11px] sm:text-xs font-bold text-[#5C5D6E] mt-0.5">1,200+ Reviews</p>
+              </div>
+              <div class="px-3 sm:px-5">
+                <div class="font-display text-xl sm:text-2xl text-[#1D1E2C] flex items-center gap-1.5">
+                  <i class="fa-solid fa-bolt text-[#E63946] text-sm sm:text-base"></i><span>25-30 Mins</span>
+                </div>
+                <p class="text-[11px] sm:text-xs font-bold text-[#5C5D6E] mt-0.5">Fast Delivery</p>
+              </div>
+              <div class="pl-3 sm:pl-5">
+                <div class="font-display text-xl sm:text-2xl text-[#2A9D8F]">Starting Rs. 150</div>
+                <p class="text-[11px] sm:text-xs font-bold text-[#5C5D6E] mt-0.5">Pocket Friendly</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+          <div class="relative w-[310px] h-[310px] sm:w-[420px] sm:h-[420px] flex items-center justify-center">
+            <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-[#C83E2B]/15 via-[#F4A261]/25 to-[#E63946]/15"></div>
+            <svg class="absolute inset-0 w-full h-full spin-circular-text pointer-events-none" viewBox="0 0 300 300">
+              <defs><path id="heroTextCircle" d="M 150, 150 m -132, 0 a 132,132 0 1,1 264,0 a 132,132 0 1,1 -264,0" /></defs>
+              <text fill="#1D1E2C" font-family="'Oswald', sans-serif" font-size="12.4" font-weight="700" letter-spacing="4.15">
+                <textPath href="#heroTextCircle" startOffset="0%">
+                  FRESHLY MADE &bull; HOT &amp; LOADED &bull; 100% HALAL &bull; ARTISANAL CRUST &bull;
+                </textPath>
+              </text>
+            </svg>
+
+            <div class="relative w-[238px] h-[238px] sm:w-[325px] sm:h-[325px] rounded-full overflow-hidden border-[8px] border-white shadow-2xl bg-[#1D1E2C]">
+              <img id="hero-showcase-img" src="https://images.pexels.com/photos/17121731/pexels-photo-17121731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Loaded Crispy Zinger Cheese Burger" class="w-full h-full object-cover transition-all duration-500 scale-105" />
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent pt-8 pb-3.5 px-4 text-center">
+                <span id="hero-showcase-title" class="text-white font-oswald text-sm sm:text-base tracking-wider block">MIGHTY ZEST ZINGER &bull; RS. 370</span>
+              </div>
+            </div>
+
+            <div class="float-badge-1 absolute -top-2 -left-2 sm:top-3 sm:-left-4 z-20 bg-[#E63946] text-white px-4 py-2.5 rounded-2xl shadow-xl border-2 border-white flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center text-white"><i class="fa-solid fa-fire text-base"></i></div>
+              <div>
+                <span class="block text-[10px] uppercase tracking-widest font-bold opacity-90">Wood-Fired</span>
+                <span class="font-display text-lg sm:text-xl leading-none tracking-wide">800&deg; OVEN</span>
+              </div>
+            </div>
+
+            <div class="float-badge-2 absolute -bottom-3 -right-2 sm:bottom-4 sm:-right-5 z-20 bg-[#F4A261] text-[#1D1E2C] px-4 py-3 rounded-2xl shadow-xl border-2 border-white max-w-[195px] sm:max-w-[215px]">
+              <div class="flex items-start gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-[#1D1E2C] text-[#F4A261] flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-bottle-droplet text-xs"></i></span>
+                <div>
+                  <span class="block font-display text-xs sm:text-sm tracking-wide leading-tight uppercase">TODAY: FREE DRINK ON DEALS</span>
+                  <span class="block text-[11px] font-bold text-[#1D1E2C]/80 mt-0.5">Included on Mega Combos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center gap-2.5 bg-white/90 px-3.5 py-2 rounded-full border border-[#ECE3D5] shadow-xs">
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#5C5D6E] pl-1">Featured:</span>
+            <button onclick="switchHeroShowcase('https://images.pexels.com/photos/17121731/pexels-photo-17121731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'MIGHTY ZEST ZINGER • RS. 370', this)" class="hero-thumb-btn active text-xs font-bold px-3 py-1 rounded-full bg-[#1D1E2C] text-white transition-all cursor-pointer">Zinger</button>
+            <button onclick="switchHeroShowcase('https://images.pexels.com/photos/29957585/pexels-photo-29957585.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'MEDIUM ROMA PIZZA DEAL • RS. 1000', this)" class="hero-thumb-btn text-xs font-bold px-3 py-1 rounded-full text-[#1D1E2C] hover:bg-[#FBF7F0] transition-all cursor-pointer">Roma Pizza</button>
+            <button onclick="switchHeroShowcase('https://images.pexels.com/photos/29306505/pexels-photo-29306505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'PIZZA PARATHA ROLL • RS. 500', this)" class="hero-thumb-btn text-xs font-bold px-3 py-1 rounded-full text-[#1D1E2C] hover:bg-[#FBF7F0] transition-all cursor-pointer">Paratha Roll</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ C. MENU SECTION ============ -->
+  <section id="menu" class="py-16 lg:py-24 bg-[#FBF7F0] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6 reveal-on-scroll">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-[#E63946] mb-2">
+            <i class="fa-solid fa-utensils"></i><span>Made Fresh To Order</span>
+          </div>
+          <h2 class="font-display text-4xl sm:text-5xl text-[#1D1E2C] tracking-tight">
+            EXPLORE OUR <span class="text-[#E63946]">CRAVE-WORTHY</span> MENU
+          </h2>
+          <p class="font-serif-italic text-lg text-[#5C5D6E] mt-1">
+            Every burger, shawarma, and crispy paratha roll crafted with 100% fresh halal ingredients.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5C5D6E] text-sm"></i>
+            <input id="menu-search-input" type="text" placeholder="Search burgers, deals, fries..." oninput="handleSearchAndFilter()" class="w-full sm:w-64 pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#ECE3D5] text-sm font-medium text-[#1D1E2C] placeholder:text-[#5C5D6E]/70 focus:outline-none focus:border-[#E63946] shadow-2xs" />
+          </div>
+          <select id="menu-sort-select" onchange="handleSearchAndFilter()" aria-label="Sort menu items" class="px-3.5 py-2.5 rounded-xl bg-white border border-[#ECE3D5] text-sm font-bold text-[#1D1E2C] focus:outline-none focus:border-[#E63946] shadow-2xs cursor-pointer">
+            <option value="default">Sort: Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sticky top-20 z-30 py-3 bg-[#FBF7F0]/95 backdrop-blur-md -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 border-y border-[#ECE3D5]/80">
+        <div id="category-tabs-container" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
+          <button data-category="All Items" onclick="setCategory('All Items')" class="category-tab active px-5 py-2.5 rounded-xl font-bold text-sm border border-[#ECE3D5] bg-white text-[#1D1E2C] flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-border-all text-xs"></i><span>All Items</span>
+            <span class="text-[11px] px-1.5 py-0.2 rounded-full bg-black/10 font-extrabold">37</span>
+          </button>
+          <button data-category="Burgers" onclick="setCategory('Burgers')" class="category-tab px-5 py-2.5 rounded-xl font-bold text-sm border border-[#ECE3D5] bg-white text-[#1D1E2C] hover:border-[#E63946] flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-burger text-[#F4A261]"></i><span>Burgers</span>
+            <span class="text-[11px] opacity-65 font-extrabold">(10)</span>
+          </button>
+          <button data-category="Shawarma" onclick="setCategory('Shawarma')" class="category-tab px-5 py-2.5 rounded-xl font-bold text-sm border border-[#ECE3D5] bg-white text-[#1D1E2C] hover:border-[#E63946] flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-pepper-hot text-[#E63946]"></i><span>Shawarma</span>
+            <span class="text-[11px] opacity-65 font-extrabold">(5)</span>
+          </button>
+          <button data-category="Paratha & Rolls" onclick="setCategory('Paratha & Rolls')" class="category-tab px-5 py-2.5 rounded-xl font-bold text-sm border border-[#ECE3D5] bg-white text-[#1D1E2C] hover:border-[#E63946] flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-scroll text-[#2A9D8F]"></i><span>Paratha &amp; Rolls</span>
+            <span class="text-[11px] opacity-65 font-extrabold">(7)</span>
+          </button>
+          <button data-category="Sides & Fries" onclick="setCategory('Sides & Fries')" class="category-tab px-5 py-2.5 rounded-xl font-bold text-sm border border-[#ECE3D5] bg-white text-[#1D1E2C] hover:border-[#E63946] flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-bowl-food text-[#F4A261]"></i><span>Sides &amp; Fries</span>
+            <span class="text-[11px] opacity-65 font-extrabold">(6)</span>
+          </button>
+          <button data-category="Mega Deals" onclick="setCategory('Mega Deals')" class="category-tab px-5 py-2.5 rounded-xl font-bold text-sm border border-[#F4A261] bg-[#F4A261]/15 text-[#1D1E2C] hover:border-[#E63946] flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-crown text-[#C83E2B]"></i><span>Mega Deals</span>
+            <span class="px-1.5 py-0.5 text-[10px] rounded bg-[#F4A261] text-[#1D1E2C] font-extrabold uppercase">Best Value</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mb-6 text-xs sm:text-sm font-semibold text-[#5C5D6E]">
+        <p id="menu-Status-text">Showing all <span class="font-extrabold text-[#1D1E2C]">37</span> freshly prepared items</p>
+        <p class="hidden sm:flex items-center gap-1.5 text-[#2A9D8F] font-bold">
+          <i class="fa-solid fa-truck-fast"></i><span>Free Delivery on orders Rs. 1,500+</span>
+        </p>
+      </div>
+
+      <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+      <div id="menu-empty-state" class="hidden text-center py-16 bg-white rounded-3xl border border-[#ECE3D5] my-4">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-[#FBF7F0] flex items-center justify-center text-[#E63946] text-2xl mb-4">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <h3 class="font-display text-2xl text-[#1D1E2C]">No matching cravings found</h3>
+        <p class="text-sm text-[#5C5D6E] mt-1 mb-5">Try clearing your search filter or switching to All Items.</p>
+        <button onclick="resetMenuFilters()" class="btn-primary-fire px-5 py-2.5 rounded-xl font-bold text-sm cursor-pointer">Reset Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ D. WHY US ============ -->
+  <section id="why-us" class="py-20 lg:py-28 bg-white border-y border-[#ECE3D5] relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div class="lg:col-span-6 relative reveal-on-scroll">
+          <div class="relative mx-auto max-w-lg">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#FBF7F0] aspect-4/3">
+              <img src="https://images.pexels.com/photos/31097819/pexels-photo-31097819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Handcrafted Gourmet Burger and Golden Fries" class="w-full h-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1D1E2C]/70 via-transparent to-transparent"></div>
+              <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+                <div>
+                  <span class="px-2.5 py-1 rounded-md bg-[#2A9D8F] text-[11px] font-extrabold uppercase tracking-wider">Zero Frozen Patties</span>
+                  <p class="font-display text-2xl sm:text-3xl mt-1.5 tracking-wide">DOUBLE CRUNCH, ZERO COMPROMISE</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="float-badge-1 absolute -top-5 -left-3 sm:-left-6 bg-[#FBF7F0] border border-[#ECE3D5] p-3.5 rounded-2xl shadow-xl flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl bg-[#2A9D8F]/15 text-[#2A9D8F] flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-leaf"></i></div>
+              <div>
+                <p class="text-xs font-extrabold uppercase text-[#1D1E2C]">Farm Fresh Produce</p>
+                <p class="text-[11px] font-medium text-[#5C5D6E]">Crisp Iceberg &amp; Pickles</p>
+              </div>
+            </div>
+
+            <div class="float-badge-2 absolute -bottom-6 -right-3 sm:-right-6 bg-[#1D1E2C] text-white p-4 rounded-2xl shadow-xl flex items-center gap-3 border-2 border-[#F4A261]">
+              <div class="w-11 h-11 rounded-xl bg-[#F4A261] text-[#1D1E2C] flex items-center justify-center text-lg font-extrabold"><i class="fa-solid fa-award"></i></div>
+              <div>
+                <p class="font-display text-base tracking-wide text-[#F4A261] leading-none">100% HALAL CERTIFIED</p>
+                <p class="text-[11px] text-white/80 mt-1">Freshly Marinated Every Morning</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 space-y-8 reveal-on-scroll">
+          <div>
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C83E2B]/10 text-[#C83E2B] text-xs font-extrabold uppercase tracking-widest">
+              <i class="fa-solid fa-fire-burner"></i>The Roma &amp; Crust Standard
+            </span>
+            <h2 class="font-display text-4xl sm:text-5xl text-[#1D1E2C] mt-3 leading-none">
+              FEED THE BEAST WITH <span class="text-[#E63946]">REAL FLAVOR</span>
+            </h2>
+            <p class="font-serif-italic text-lg text-[#5C5D6E] mt-2">
+              Why thousands of late-night foodies and families trust our kitchen every single day.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="p-6 rounded-2xl bg-[#FBF7F0] border border-[#ECE3D5] hover:border-[#2A9D8F] transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-[#2A9D8F] text-white flex items-center justify-center text-xl shadow-md mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-drumstick-bite"></i></div>
+              <h3 class="font-display text-xl text-[#1D1E2C] tracking-wide">100% Halal Fresh Meat</h3>
+              <p class="text-sm text-[#5C5D6E] mt-1.5 leading-relaxed">Hand-selected, never-frozen prime chicken fillets and beef cuts marinated for 12 hours in authentic spices.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-[#FBF7F0] border border-[#ECE3D5] hover:border-[#F4A261] transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-[#F4A261] text-[#1D1E2C] flex items-center justify-center text-xl shadow-md mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-mortar-pestle"></i></div>
+              <h3 class="font-display text-xl text-[#1D1E2C] tracking-wide">Signature Secret Sauces</h3>
+              <p class="text-sm text-[#5C5D6E] mt-1.5 leading-relaxed">Whipped in-house daily: smoky peri-mayo, roasted garlic tahini, and molten cheddar dynamo drizzle.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-[#FBF7F0] border border-[#ECE3D5] hover:border-[#E63946] transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-[#E63946] text-white flex items-center justify-center text-xl shadow-md mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-box-open"></i></div>
+              <h3 class="font-display text-xl text-[#1D1E2C] tracking-wide">Piping Hot Packaging</h3>
+              <p class="text-sm text-[#5C5D6E] mt-1.5 leading-relaxed">Ventilated thermal-lock boxes and foil wraps keep your zingers crispy and paratha rolls steaming hot.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-[#FBF7F0] border border-[#ECE3D5] hover:border-[#C83E2B] transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-[#1D1E2C] text-[#F4A261] flex items-center justify-center text-xl shadow-md mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-kitchen-set"></i></div>
+              <h3 class="font-display text-xl text-[#1D1E2C] tracking-wide">Master Chefs</h3>
+              <p class="text-sm text-[#5C5D6E] mt-1.5 leading-relaxed">Seasoned grill masters and dough artisans who sear, bake, and roll every single order with precision.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ E. REVIEWS ============ -->
+  <section id="reviews" class="py-20 lg:py-24 bg-[#C83E2B] text-white relative overflow-hidden">
+    <div class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/5"></div>
+    <div class="pointer-events-none absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-black/10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 text-[#F4A261] text-xs font-extrabold uppercase tracking-widest mb-3">
+          <i class="fa-solid fa-heart"></i><span>Rated 4.9/5 Across 1,200+ Orders</span>
+        </span>
+        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight">What Our Customers Are Saying</h2>
+        <p class="font-serif-italic text-lg sm:text-xl text-white/85 mt-2">Real reviews from burger lovers, shawarma fanatics, and late-night deal hunters.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7 mb-16 reveal-on-scroll">
+        <div class="bg-white text-[#1D1E2C] rounded-2xl p-7 shadow-xl flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-1 text-[#F4A261] text-base">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#2A9D8F]/15 text-[#2A9D8F]">Verified Order</span>
+            </div>
+            <p class="text-[#1D1E2C] text-base leading-relaxed font-medium">
+              &ldquo;Hands down the crunchiest <span class="font-bold text-[#E63946]">Mighty Zest</span> and <span class="font-bold">Pizza Paratha</span> in town! Ordered Deal 5 for our family movie night and everything arrived piping hot in 25 minutes with the free 1 Ltr drink.&rdquo;
+            </p>
+          </div>
+          <div class="flex items-center gap-3.5 pt-6 mt-6 border-t border-[#ECE3D5]">
+            <div class="w-11 h-11 rounded-full bg-[#E63946] text-white font-display text-lg flex items-center justify-center">AH</div>
+            <div>
+              <h4 class="font-extrabold text-sm text-[#1D1E2C]">Ahmed Hassan</h4>
+              <p class="text-xs text-[#5C5D6E]">Ordered Deal 5 &amp; Pizza Fries</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white text-[#1D1E2C] rounded-2xl p-7 shadow-xl flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-1 text-[#F4A261] text-base">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#2A9D8F]/15 text-[#2A9D8F]">Verified Order</span>
+            </div>
+            <p class="text-[#1D1E2C] text-base leading-relaxed font-medium">
+              &ldquo;Their <span class="font-bold text-[#E63946]">Black Cheese Burger</span> and <span class="font-bold">Chicken Cheese Shawarma</span> are addictive. The garlic sauce tastes super fresh and the WhatsApp checkout makes ordering effortless without any annoying app signups.&rdquo;
+            </p>
+          </div>
+          <div class="flex items-center gap-3.5 pt-6 mt-6 border-t border-[#ECE3D5]">
+            <div class="w-11 h-11 rounded-full bg-[#1D1E2C] text-[#F4A261] font-display text-lg flex items-center justify-center">ZK</div>
+            <div>
+              <h4 class="font-extrabold text-sm text-[#1D1E2C]">Zainab Khan</h4>
+              <p class="text-xs text-[#5C5D6E]">Regular Weekend Customer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white text-[#1D1E2C] rounded-2xl p-7 shadow-xl flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-1 text-[#F4A261] text-base">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#2A9D8F]/15 text-[#2A9D8F]">Verified Order</span>
+            </div>
+            <p class="text-[#1D1E2C] text-base leading-relaxed font-medium">
+              &ldquo;Unbeatable value for money! Where else do you get a loaded <span class="font-bold text-[#E63946]">Zinger Crespo for Rs. 220</span> or <span class="font-bold">3 Chicken Shawarmas for Rs. 480</span>? Portion sizes and hygiene are 10/10.&rdquo;
+            </p>
+          </div>
+          <div class="flex items-center gap-3.5 pt-6 mt-6 border-t border-[#ECE3D5]">
+            <div class="w-11 h-11 rounded-full bg-[#2A9D8F] text-white font-display text-lg flex items-center justify-center">UT</div>
+            <div>
+              <h4 class="font-extrabold text-sm text-[#1D1E2C]">Usman Tariq</h4>
+              <p class="text-xs text-[#5C5D6E]">Ordered Deal 1 &amp; Hunger Fill Burger</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-on-scroll">
+        <div class="flex items-center justify-between mb-4">
+          <p class="font-display text-lg tracking-wider uppercase text-white/90">
+            <i class="fa-brands fa-instagram text-[#F4A261] mr-1.5"></i>#RomaAndCrust &bull; Fresh From Our Grill
+          </p>
+          <a href="#menu" class="text-xs font-extrabold uppercase tracking-wider text-[#F4A261] hover:underline">Order Your Craving &rarr;</a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="group relative rounded-2xl overflow-hidden aspect-4/3 border-2 border-white/20 shadow-lg">
+            <img src="https://images.pexels.com/photos/9207184/pexels-photo-9207184.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Loaded Zinger Burgers with Friends" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+              <span class="text-white font-bold text-xs">Crispy Zinger Trio</span>
+            </div>
+          </div>
+          <div class="group relative rounded-2xl overflow-hidden aspect-4/3 border-2 border-white/20 shadow-lg">
+            <img src="https://images.pexels.com/photos/14774690/pexels-photo-14774690.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Artisanal Shawarma & Paratha Rolls" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+              <span class="text-white font-bold text-xs">Loaded Cheese Shawarma</span>
+            </div>
+          </div>
+          <div class="group relative rounded-2xl overflow-hidden aspect-4/3 border-2 border-white/20 shadow-lg">
+            <img src="https://images.pexels.com/photos/31090633/pexels-photo-31090633.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Mega Feast Pizza, Wings & Fries" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+              <span class="text-white font-bold text-xs">Weekend Mega Feast</span>
+            </div>
+          </div>
+          <div class="group relative rounded-2xl overflow-hidden aspect-4/3 border-2 border-white/20 shadow-lg">
+            <img src="https://images.pexels.com/photos/29653205/pexels-photo-29653205.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Crispy Golden Fries & Signature Mayo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+              <span class="text-white font-bold text-xs">Signature Garlic &amp; Pizza Fries</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ G. FOOTER ============ -->
+  <footer id="contact" class="bg-[#1D1E2C] text-white pt-16 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-gradient-to-r from-[#E63946] to-[#C83E2B] p-7 sm:p-10 shadow-2xl mb-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div class="max-w-xl">
+          <span class="inline-block px-3 py-1 rounded-full bg-black/20 text-[#F4A261] text-xs font-extrabold uppercase tracking-widest mb-2">VIP Foodie Club</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white tracking-wide">GET EXCLUSIVE WEEKEND DEALS &amp; SECRET COUPONS</h3>
+          <p class="text-white/85 text-sm sm:text-base mt-1">Join 5,000+ local food lovers. Get instant alerts for BOGO Zinger nights and free garlic fries.</p>
+        </div>
+
+        <form onsubmit="handleNewsletterSubmit(event)" class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+          <input id="newsletter-email" type="email" required placeholder="Enter your email or WhatsApp #..." class="w-full sm:w-72 px-4 py-3.5 rounded-xl bg-white text-[#1D1E2C] placeholder:text-[#5C5D6E] font-medium text-sm focus:outline-none focus:ring-2 focus:ring-[#F4A261]" />
+          <button type="submit" class="px-6 py-3.5 rounded-xl bg-[#F4A261] hover:bg-[#f7b178] text-[#1D1E2C] font-extrabold text-sm uppercase tracking-wider transition-all shadow-lg cursor-pointer shrink-0">Claim Deals &rarr;</button>
+        </form>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[#E63946] flex items-center justify-center text-white"><i class="fa-solid fa-pizza-slice"></i></div>
+            <span class="font-display text-2xl tracking-wider text-white">ROMA <span class="text-[#F4A261]">&amp;</span> CRUST</span>
+          </div>
+          <p class="text-sm text-white/70 leading-relaxed">Crispy, cheesy, and piping hot fast food crafted with artisanal care. 100% Halal meats, house-made sauces, and lightning-fast doorstep delivery.</p>
+          <div class="flex items-center gap-3 pt-1">
+            <!-- INSTAGRAM: TUSADIQ_I -->
+            <a href="https://www.instagram.com/tusadiq_i/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram - tusadiq_i" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#E63946] flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <!-- TIKTOK: TUSADIQ_I -->
+            <a href="https://www.tiktok.com/@tusadiq_i?_r=1&_t=ZS-9BcLjrPP0fh" target="_blank" rel="noopener noreferrer" aria-label="TikTok - tusadiq_i" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#E63946] flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <!-- WHATSAPP: 03428423052 -->
+            <a href="https://wa.me/923428423052?text=I%20want%20to%20place%20an%20order" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp - 03428423052" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#2A9D8F] flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-display text-lg tracking-wider text-[#F4A261] mb-4">Quick Menu</h4>
+          <ul class="space-y-2.5 text-sm text-white/75">
+            <li><a href="#menu" onclick="selectCategoryAndScroll('Burgers', event)" class="hover:text-[#F4A261] transition-colors">Loaded Zinger &amp; Grill Burgers</a></li>
+            <li><a href="#menu" onclick="selectCategoryAndScroll('Shawarma', event)" class="hover:text-[#F4A261] transition-colors">Arabian &amp; Cheese Shawarma</a></li>
+            <li><a href="#menu" onclick="selectCategoryAndScroll('Paratha & Rolls', event)" class="hover:text-[#F4A261] transition-colors">Crispy Paratha Rolls &amp; Twisters</a></li>
+            <li><a href="#menu" onclick="selectCategoryAndScroll('Sides & Fries', event)" class="hover:text-[#F4A261] transition-colors">Pizza Fries, Wings &amp; Cheese Pasta</a></li>
+            <li><a href="#menu" onclick="selectCategoryAndScroll('Mega Deals', event)" class="hover:text-[#F4A261] transition-colors">Mega Family &amp; Duo Deals</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-display text-lg tracking-wider text-[#F4A261] mb-4">Opening Hours</h4>
+          <ul class="space-y-2.5 text-sm text-white/75">
+            <li class="flex justify-between"><span>Monday &ndash; Thursday:</span><span class="font-bold text-white">12:00 PM &ndash; 2:00 AM</span></li>
+            <li class="flex justify-between"><span>Friday (After Jummah):</span><span class="font-bold text-white">2:30 PM &ndash; 3:00 AM</span></li>
+            <li class="flex justify-between"><span>Saturday &ndash; Sunday:</span><span class="font-bold text-[#F4A261]">12:00 PM &ndash; 3:30 AM</span></li>
+            <li class="pt-2">
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2A9D8F]/20 text-[#2A9D8F] text-xs font-extrabold">
+                <span class="w-2 h-2 rounded-full bg-[#2A9D8F] blinking-dot"></span>Kitchen Open Now for Delivery
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-display text-lg tracking-wider text-[#F4A261] mb-4">Contact &amp; Delivery</h4>
+          <ul class="space-y-3 text-sm text-white/75">
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-location-dot text-[#E63946] mt-1"></i>
+              <span>Shop #14, Main Commercial Boulevard, Food Street Plaza</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-[#2A9D8F]"></i>
+              <a href="tel:03428423052" class="font-bold text-white hover:text-[#F4A261]">0342-8423052</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-brands fa-whatsapp text-[#2A9D8F] text-base"></i>
+              <a href="https://wa.me/923428423052?text=I%20want%20to%20place%20an%20order" target="_blank" rel="noopener noreferrer" class="text-left font-bold text-[#F4A261] hover:underline">
+                Order on WhatsApp &rarr;
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-4">
+        <p>&copy; 2026 ROMA &amp; CRUST Artisanal Fast Food. All rights reserved.</p>
+        <p>Prices in PKR (Rs.) &bull; 100% Halal Certified &bull; Freshly Prepared</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ F. CART DRAWER ============ -->
+  <div id="cart-backdrop" onclick="toggleCartDrawer(false)" class="cart-drawer-backdrop fixed inset-0 z-50"></div>
+
+  <aside id="cart-drawer" aria-label="Shopping Cart Drawer" class="cart-drawer-panel fixed top-0 right-0 bottom-0 z-50 w-full max-w-md bg-[#FBF7F0] shadow-2xl flex flex-col border-l border-[#ECE3D5]">
+    <div class="px-6 py-5 bg-white border-b border-[#ECE3D5] flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#E63946]/12 text-[#E63946] flex items-center justify-center text-lg"><i class="fa-solid fa-bag-shopping"></i></div>
+        <div>
+          <h3 class="font-display text-2xl text-[#1D1E2C] leading-none">YOUR ORDER CART</h3>
+          <p id="drawer-subtitle" class="text-xs font-bold text-[#5C5D6E] mt-0.5">0 items selected</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="clear-cart-btn" onclick="clearCart()" class="hidden text-xs font-bold text-[#E63946] hover:underline px-2 py-1 cursor-pointer">Clear All</button>
+        <button onclick="toggleCartDrawer(false)" class="w-9 h-9 rounded-xl bg-[#FBF7F0] hover:bg-[#E63946] hover:text-white text-[#1D1E2C] flex items-center justify-center transition-colors cursor-pointer" aria-label="Close Cart Drawer">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="free-delivery-banner" class="px-6 py-2.5 bg-[#2A9D8F]/12 border-b border-[#2A9D8F]/20 text-xs font-bold text-[#1D1E2C] flex items-center justify-between gap-2">
+      <span id="free-delivery-text">Add <strong class="text-[#E63946]">Rs. 1,500</strong> for FREE Delivery!</span>
+      <span class="text-[#2A9D8F] font-extrabold"><i class="fa-solid fa-motorcycle"></i></span>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-6 py-5 space-y-6">
+      <div id="cart-items-container" class="space-y-3"></div>
+
+      <div id="checkout-form-section" class="bg-white p-5 rounded-2xl border border-[#ECE3D5] space-y-4 shadow-2xs">
+        <div class="flex items-center justify-between border-b border-[#ECE3D5] pb-3">
+          <h4 class="font-display text-lg text-[#1D1E2C] tracking-wide flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-[#E63946]"></i><span>DELIVERY DETAILS</span>
+          </h4>
+          <span class="text-[11px] font-bold text-[#2A9D8F]">Cash on Delivery</span>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label for="cust-name" class="block text-xs font-extrabold uppercase tracking-wider text-[#1D1E2C] mb-1">Customer Name <span class="text-[#E63946]">*</span></label>
+            <input id="cust-name" type="text" placeholder="e.g., Ali Raza" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF7F0] border border-[#ECE3D5] text-sm font-medium text-[#1D1E2C] focus:outline-none focus:border-[#E63946]" />
+          </div>
+          <div>
+            <label for="cust-phone" class="block text-xs font-extrabold uppercase tracking-wider text-[#1D1E2C] mb-1">Phone Number <span class="text-[#E63946]">*</span></label>
+            <input id="cust-phone" type="tel" placeholder="e.g., 0300-1234567" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF7F0] border border-[#ECE3D5] text-sm font-medium text-[#1D1E2C] focus:outline-none focus:border-[#E63946]" />
+          </div>
+          <div>
+            <label for="cust-address" class="block text-xs font-extrabold uppercase tracking-wider text-[#1D1E2C] mb-1">Complete Delivery Address <span class="text-[#E63946]">*</span></label>
+            <textarea id="cust-address" rows="2" placeholder="House #, Street, Block / Sector, Nearest Landmark..." class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF7F0] border border-[#ECE3D5] text-sm font-medium text-[#1D1E2C] focus:outline-none focus:border-[#E63946]"></textarea>
+          </div>
+          <div>
+            <label for="cust-notes" class="block text-xs font-extrabold uppercase tracking-wider text-[#5C5D6E] mb-1">Special Instructions (Optional)</label>
+            <input id="cust-notes" type="text" placeholder="e.g., Extra garlic sauce, spicy zinger..." class="w-full px-3.5 py-2 rounded-xl bg-[#FBF7F0] border border-[#ECE3D5] text-xs font-medium text-[#1D1E2C] focus:outline-none focus:border-[#E63946]" />
+          </div>
+        </div>
+
+        <p id="checkout-error-msg" class="hidden text-xs font-bold text-[#E63946] bg-[#E63946]/10 px-3 py-2 rounded-lg"></p>
+      </div>
+    </div>
+
+    <div class="p-6 bg-white border-t border-[#ECE3D5] space-y-4">
+      <div class="space-y-1.5 text-sm">
+        <div class="flex justify-between text-[#5C5D6E] font-medium"><span>Subtotal</span><span id="cart-subtotal" class="font-bold text-[#1D1E2C]">Rs. 0</span></div>
+        <div class="flex justify-between text-[#5C5D6E] font-medium"><span>Delivery Fee <span class="text-[11px]">(Free above Rs. 1,500)</span></span><span id="cart-delivery" class="font-bold text-[#1D1E2C]">Rs. 0</span></div>
+        <div class="flex justify-between items-baseline pt-2 border-t border-[#ECE3D5]">
+          <span class="font-display text-xl text-[#1D1E2C]">GRAND TOTAL</span>
+          <span id="cart-grand-total" class="font-display text-2xl text-[#E63946]">Rs. 0</span>
+        </div>
+      </div>
+
+      <button id="whatsapp-checkout-btn" onclick="submitWhatsAppOrder()" class="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#1ebe57] text-white font-extrabold text-base shadow-lg shadow-[#25D366]/30 flex items-center justify-center gap-3 transition-all cursor-pointer">
+        <i class="fa-brands fa-whatsapp text-2xl"></i><span>Order via WhatsApp</span>
+      </button>
+    </div>
+  </aside>
+
+  <div id="mobile-floating-cart" class="fixed bottom-4 inset-x-4 z-30 sm:hidden hidden">
+    <button onclick="toggleCartDrawer(true)" class="w-full py-3.5 px-5 rounded-2xl bg-[#1D1E2C] text-white shadow-2xl border border-white/15 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span id="mobile-bar-count" class="w-7 h-7 rounded-full bg-[#E63946] text-white font-extrabold text-xs flex items-center justify-center">0</span>
+        <span class="font-bold text-sm">View Order Cart</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="mobile-bar-total" class="font-display text-lg text-[#F4A261]">Rs. 0</span>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+      </div>
+    </button>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>
